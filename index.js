@@ -11,15 +11,14 @@ const app = express();
 // config CORS
 app.use(cors());
 
+// read and parse body
+app.use(express.json());
+
 // database
 dbConnection();
 
 // routes
-app.get('/', (req, res) => {
-    res.json({
-        ok: true,
-        msg: 'ahora si'
-    });
-});
+app.use( '/api/users', require('./routes/users'));
+app.use( '/api/login', require('./routes/auth'));
 
 app.listen(process.env.PORT, () => console.log('Port: ', process.env.PORT));
