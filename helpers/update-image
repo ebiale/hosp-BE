@@ -1,0 +1,50 @@
+const fs = require('fs');
+
+const User = require('../models/user');
+const Doctor = require('../models/doctor');
+const Hospital = require('../models/hospital');
+
+const changeImg = (oldPic) => {
+    if (fs.existsSync(oldPic)) {
+        fs.unlinkSync(oldPic);
+    }
+};
+
+const updateImage = async (type, id, fileName) => {
+    switch (type) {
+        case 'users':
+            const user = await User.findById(id);
+            if (!user) return false;
+            changeImg(`./uploads/users/${user.img}`);
+
+            user.img = fileName;
+            await user.save();
+            return  true;
+        case 'hospitals':
+            const hosp = await Hospital.findById(id);
+            if (!hosp) return false;
+            changeImg(`./uploads/users/${hosp.img}`);
+
+            hosp.img = fileName;
+            await hosp.save();
+            return  true;
+        case 'doctors':
+            const dr = await Doctor.findById(id);
+            if (!dr) return false;
+            changeImg(`./uploads/users/${dr.img}`);
+
+            dr.img = fileName;
+            await dr.save();
+            return  true;
+        default:
+            return res.status(400).json({
+                ok: false,
+                msg: 'invalid type'
+            })
+    }
+
+};
+
+module.exports = {
+    updateImage
+};
