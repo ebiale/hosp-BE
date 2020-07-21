@@ -27,7 +27,7 @@ const fileUpload = (req, res = response) => {
 
 
     // process image
-    const file = req.files.imagen;
+    const file = req.files.image;
 
     const nameArr = file.name.split('.');
     const extension = nameArr[nameArr.length - 1];
@@ -60,7 +60,8 @@ const fileUpload = (req, res = response) => {
 
         res.status(200).json({
             ok: true,
-            msg: 'File uploaded'
+            msg: 'File uploaded',
+            fileName
         })
     });
 };
