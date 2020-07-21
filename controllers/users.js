@@ -48,7 +48,8 @@ const addUser = async (req, res = response) => {
         res.json({
             ok: true,
             user,
-            token
+            token,
+            id: user.id
         })
     } catch (e) {
         console.log(e);

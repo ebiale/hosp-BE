@@ -5,12 +5,11 @@ const User = require('../models/user');
 const {googleVerify} = require('../helpers/google-verify');
 const {generateJWT} = require('../helpers/jwt');
 
-const login = async (req, res = response) => {
+const login = async(req, res = response) => {
 
     const { email, password } = req.body;
 
     try {
-
         // verify email
         const userDB = await User.findOne({email});
 
@@ -36,7 +35,9 @@ const login = async (req, res = response) => {
 
         res.status(200).json({
             ok: true,
-            token
+            token,
+            id: userDB._id,
+            user: userDB
         })
 
     } catch (e) {
