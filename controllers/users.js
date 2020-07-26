@@ -24,6 +24,30 @@ const getUsers = async (req, res) => {
     })
 };
 
+const getUserById = async (req, res) => {
+    const uid = req.params.id;
+    try {
+        const userDB = await User.findById(uid);
+        if (!userDB) {
+            return res.status(404).json({
+                ok: false,
+                msg: 'user not found'
+            })
+        }
+
+        res.json({
+            ok: true,
+            user: userDB
+        });
+    } catch (e) {
+        console.log(e);
+        res.status(500).json({
+            ok: false,
+            msg: 'Unexpected error'
+        });
+    }
+};
+
 const addUser = async (req, res = response) => {
     const {email, password} = req.body;
 
@@ -153,5 +177,6 @@ module.exports = {
     getUsers,
     addUser,
     updateUser,
-    deleteUser
+    deleteUser,
+    getUserById
 };

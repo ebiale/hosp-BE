@@ -25,6 +25,23 @@ const globalSearch = async (req, res = response) => {
     })
 };
 
+
+/*const [doctors, totalCount ] = await Promise.all([
+        Doctor
+            .find()
+            .skip(from)
+            .limit(limit)
+            .populate('user', 'name img')
+            .populate('hospital', 'name img'),
+        Doctor.countDocuments()
+    ]);
+
+    res.json({
+        ok: true,
+        doctors,
+        totalCount
+    })*/
+
 const seachByCollection = async(req, res = response) => {
     const collection = req.params.collection;
     const search = req.params.search;
@@ -54,7 +71,7 @@ const seachByCollection = async(req, res = response) => {
     res.status(200).json({
         ok: true,
         data
-    })
+    });
 };
 
 module.exports = {

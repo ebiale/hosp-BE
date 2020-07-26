@@ -3,13 +3,46 @@ const {response} = require('express');
 const Doctor = require('../models/doctor');
 
 const getDoctors = async (req, res = response) => {
-    const doctors = await Doctor.find()
-        .populate('user', 'name img')
-        .populate('hospital', 'name img');
+    const from = Number(req.query.from) || 0;
+    const limit = Number(req.query.limit) || 5;
+
+    const [doctors, totalCount ] = await Promise.all([
+        Doctor
+            .find()
+            .skip(from)
+            .limit(limit)
+            .populate('user', 'name img')
+            .populate('hospital', 'name img'),
+        Doctor.countDocuments()
+    ]);
+
     res.json({
         ok: true,
-        doctors
+        doctors,
+        totalCount
     })
+};
+
+const getDoctorById = async (req, res = response) => {
+    const id = req.params.id;
+    try {
+        const doctor = await Doctor.findById(id)
+            .populate('user', 'name img')
+            .populate('hospital', 'name img');
+        console.log(doctor.name);
+
+        res.json({
+            ok: true,
+            doctor
+        })
+    } catch (e) {
+        console.log(e);
+        res.status(500).json({
+            ok: false,
+            msg: 'Unexpected error'
+        });
+    }
+
 };
 
 const addDoctor = async (req, res = response) => {
@@ -94,5 +127,6 @@ module.exports = {
     getDoctors,
     addDoctor,
     updateDoctor,
-    deleteDoctor
+    deleteDoctor,
+    getDoctorById
 };
