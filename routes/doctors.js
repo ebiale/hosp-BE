@@ -1,7 +1,7 @@
 /*
 * ruta: '/api/doctors'
 * */
-const {deleteDoctor, updateDoctor, addDoctor, getDoctors, getDoctorById} = require('../controllers/Doctors');
+const {deleteDoctor, updateDoctor, addDoctor, getDoctors, getDoctorById} = require('../controllers/doctors');
 const {Router} = require('express');
 const {check} = require('express-validator');
 const {fieldValidation} = require('../middlewares/field-validation');

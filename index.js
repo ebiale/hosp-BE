@@ -28,4 +28,4 @@ app.use( '/api/doctors', require('./routes/doctors'));
 app.use( '/api/globalSearch', require('./routes/globalSearch'));
 app.use( '/api/upload', require('./routes/uploads'));
 
-app.listen(process.env.LOCAL_PORT, () => console.log('Port: ', process.env.LOCAL_PORT));
+app.listen(process.env.PORT, () => console.log('Port: ', process.env.PORT));
