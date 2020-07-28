@@ -31,7 +31,7 @@ const getUserById = async (req, res) => {
         if (!userDB) {
             return res.status(404).json({
                 ok: false,
-                msg: 'user not found'
+                msg: 'User not found'
             })
         }
 

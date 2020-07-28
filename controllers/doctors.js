@@ -29,7 +29,6 @@ const getDoctorById = async (req, res = response) => {
         const doctor = await Doctor.findById(id)
             .populate('user', 'name img')
             .populate('hospital', 'name img');
-        console.log(doctor.name);
 
         res.json({
             ok: true,
